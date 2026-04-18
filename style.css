@@ -1,0 +1,21 @@
+/* CSS cho nền giấy ô ly */
+.bg-graph {
+  background-image:
+    linear-gradient(to right, #000 1px, transparent 1px),
+    linear-gradient(to bottom, #000 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+/* Animation hiện kết quả */
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fadeInSlideUp 0.5s ease-out forwards;
+}

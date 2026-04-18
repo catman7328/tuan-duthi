@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hồ Sơ Hướng Nghiệp</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="min-h-screen bg-slate-50 font-sans text-slate-800 relative">
+    <!-- Background họa tiết giấy ô ly giống bản nháp -->
+    <div
+      class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-graph"
+    ></div>
+
+    <div class="max-w-3xl mx-auto p-4 sm:p-6 lg:p-8 relative z-10">
+      <!-- Header -->
+      <header class="text-center mb-10">
+        <h1
+          class="text-3xl md:text-4xl font-bold text-slate-900 mb-3 tracking-tight"
+        >
+          Hồ Sơ Hướng Nghiệp
+        </h1>
+        <p class="text-slate-500">
+          Khám phá con đường tương lai qua vài bước đơn giản
+        </p>
+      </header>
+
+      <!-- Main Form -->
+      <form
+        id="careerForm"
+        class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden mb-12"
+      >
+        <!-- 1. Thông tin cá nhân -->
+        <div class="p-6 md:p-8 border-b border-slate-100 bg-slate-50/50">
+          <h2
+            class="text-lg font-semibold mb-4 flex items-center gap-2 text-indigo-700"
+          >
+            <span
+              class="bg-indigo-100 text-indigo-700 w-6 h-6 rounded-full flex items-center justify-center text-sm"
+              >1</span
+            >
+            Thông tin của bạn
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label
+                class="block text-sm font-medium text-slate-600 mb-2 flex items-center gap-2"
+              >
+                <i class="fa-solid fa-user text-xs"></i> Tên gọi
+              </label>
+              <input
+                type="text"
+                id="inputName"
+                required
+                placeholder="Nhập tên của bạn..."
+                class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+              />
+            </div>
+            <div>
+              <label
+                class="block text-sm font-medium text-slate-600 mb-2 flex items-center gap-2"
+              >
+                <i class="fa-solid fa-calendar text-xs"></i> Năm sinh
+              </label>
+              <input
+                type="number"
+                id="inputYear"
+                required
+                min="1990"
+                max="2015"
+                placeholder="Ví dụ: 2006"
+                class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Tổ hợp môn -->
+        <div class="p-6 md:p-8 border-b border-slate-100">
+          <h2
+            class="text-lg font-semibold mb-4 flex items-center gap-2 text-blue-700"
+          >
+            <span
+              class="bg-blue-100 text-blue-700 w-6 h-6 rounded-full flex items-center justify-center text-sm"
+              >2</span
+            >
+            Chọn tổ hợp môn xét tuyển
+          </h2>
+
+          <div class="relative">
+            <div class="relative flex items-center">
+              <i
+                class="fa-solid fa-magnifying-glass absolute left-4 text-slate-400"
+              ></i>
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Tìm mã tổ hợp (VD: A00) hoặc tên môn (VD: Toán, Lý)..."
+                class="w-full pl-10 pr-10 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm text-slate-700"
+                autocomplete="off"
+              />
+              <i
+                class="fa-solid fa-chevron-down absolute right-4 text-slate-400 pointer-events-none"
+              ></i>
+            </div>
+
+            <!-- Dropdown danh sách -->
+            <ul
+              id="dropdownList"
+              class="absolute z-20 w-full mt-2 bg-white border border-slate-200 rounded-xl shadow-xl max-h-60 overflow-y-auto hidden"
+            >
+              <!-- Items rendered by JS -->
+            </ul>
+          </div>
+
+          <!-- Hiển thị khối đã chọn -->
+          <div id="selectedBlockDisplay" class="mt-4 hidden animate-fade-in-up">
+            <div
+              class="flex items-center gap-4 p-4 bg-blue-50 border border-blue-200 rounded-xl"
+            >
+              <div
+                class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xl shrink-0"
+              >
+                <span id="displayCode"></span>
+              </div>
+              <div>
+                <p class="text-sm text-slate-500 mb-1">Tổ hợp đã chọn:</p>
+                <p class="font-bold text-slate-800" id="displaySubjects"></p>
+              </div>
+              <button
+                type="button"
+                onclick="clearSelection()"
+                class="ml-auto text-slate-400 hover:text-red-500 p-2 transition-colors"
+                title="Chọn lại"
+              >
+                <i class="fa-solid fa-rotate-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Tính cách -->
+        <div class="p-6 md:p-8 bg-slate-50/50">
+          <h2
+            class="text-lg font-semibold mb-4 flex items-center gap-2 text-amber-600"
+          >
+            <span
+              class="bg-amber-100 text-amber-700 w-6 h-6 rounded-full flex items-center justify-center text-sm"
+              >3</span
+            >
+            Sở thích & Tính cách
+            <span class="text-sm font-normal text-slate-500 ml-2"
+              >(Chọn tối đa 2)</span
+            >
+          </h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <button
+              type="button"
+              onclick="toggleTrait('logic')"
+              id="trait-logic"
+              class="trait-btn flex flex-col items-center justify-center p-3 rounded-lg border transition-all bg-white border-slate-200 text-slate-600 hover:bg-slate-50"
+            >
+              <i class="fa-solid fa-brain text-xl mb-2 opacity-80"></i>
+              <span class="text-sm text-center">Tư duy logic</span>
+            </button>
+            <button
+              type="button"
+              onclick="toggleTrait('creative')"
+              id="trait-creative"
+              class="trait-btn flex flex-col items-center justify-center p-3 rounded-lg border transition-all bg-white border-slate-200 text-slate-600 hover:bg-slate-50"
+            >
+              <i class="fa-solid fa-lightbulb text-xl mb-2 opacity-80"></i>
+              <span class="text-sm text-center">Thích sáng tạo</span>
+            </button>
+            <button
+              type="button"
+              onclick="toggleTrait('social')"
+              id="trait-social"
+              class="trait-btn flex flex-col items-center justify-center p-3 rounded-lg border transition-all bg-white border-slate-200 text-slate-600 hover:bg-slate-50"
+            >
+              <i
+                class="fa-solid fa-handshake-angle text-xl mb-2 opacity-80"
+              ></i>
+              <span class="text-sm text-center">Thích giao tiếp</span>
+            </button>
+            <button
+              type="button"
+              onclick="toggleTrait('detail')"
+              id="trait-detail"
+              class="trait-btn flex flex-col items-center justify-center p-3 rounded-lg border transition-all bg-white border-slate-200 text-slate-600 hover:bg-slate-50"
+            >
+              <i class="fa-solid fa-check-circle text-xl mb-2 opacity-80"></i>
+              <span class="text-sm text-center">Tỉ mỉ, cẩn thận</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="p-6 bg-white border-t border-slate-100 text-center">
+          <button
+            type="submit"
+            id="submitBtn"
+            class="inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-full font-semibold transition-all shadow-lg hover:shadow-indigo-500/30"
+          >
+            Phân tích Ngành Nghề <i class="fa-solid fa-arrow-right"></i>
+          </button>
+          <p id="errorMsg" class="text-xs text-red-500 mt-2 hidden">
+            * Vui lòng chọn tổ hợp môn để tiếp tục
+          </p>
+        </div>
+      </form>
+
+      <!-- Kết quả: Ngành nghề / Công việc -->
+      <div id="results-section" class="mb-12 hidden">
+        <h2 class="text-2xl font-bold text-slate-900 mb-6 text-center">
+          Dựa trên hồ sơ,
+          <span id="resultName" class="text-indigo-600"></span> có thể hợp với:
+        </h2>
+        <div
+          id="resultsContainer"
+          class="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
+          <!-- Cards will be injected here via JS -->
+        </div>
+        <div class="text-center mt-6">
+          <p class="text-sm text-slate-500 italic">
+            * Đây là những gợi ý mang tính chất tham khảo bước đầu. Hãy tìm hiểu
+            kỹ hơn về từng ngành nhé!
+          </p>
+        </div>
+      </div>
+
+      <!-- Phản hồi / Email -->
+      <div class="bg-slate-900 rounded-2xl p-6 md:p-8 text-white shadow-xl">
+        <div class="max-w-2xl mx-auto text-center mb-6">
+          <h3
+            class="text-xl font-bold mb-2 flex items-center justify-center gap-2"
+          >
+            <i class="fa-solid fa-envelope text-indigo-400"></i> Gửi ý kiến phản
+            hồi
+          </h3>
+          <p class="text-slate-400 text-sm">
+            Bạn có thắc mắc hoặc cần tư vấn sâu hơn? Hãy để lại thông tin.
+          </p>
+        </div>
+
+        <div
+          id="feedbackSuccess"
+          class="hidden bg-emerald-500/20 text-emerald-300 p-4 rounded-lg flex items-center justify-center gap-2 max-w-xl mx-auto"
+        >
+          <i class="fa-solid fa-check-circle"></i>
+          Đã ghi nhận phản hồi của bạn. Chúng tôi sẽ liên hệ sớm!
+        </div>
+
+        <form
+          id="feedbackForm"
+          class="flex flex-col gap-4 max-w-xl mx-auto"
+          action="https://formspree.io/f/xdayoeqv"
+          method="POST"
+        >
+          <div class="relative">
+            <i
+              class="fa-solid fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+            ></i>
+            <input
+              type="email"
+              name="email"
+              id="fbEmail"
+              required
+              placeholder="Địa chỉ Email của bạn..."
+              class="w-full bg-slate-800 border border-slate-700 text-white rounded-lg py-3 pl-10 pr-4 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+            />
+          </div>
+          <div class="relative">
+            <i
+              class="fa-solid fa-comment-dots absolute left-3 top-3.5 text-slate-400"
+            ></i>
+            <textarea
+              id="fbMessage"
+              name="message"
+              required
+              rows="3"
+              placeholder="Viết ý kiến hoặc câu hỏi của bạn..."
+              class="w-full bg-slate-800 border border-slate-700 text-white rounded-lg py-3 pl-10 pr-4 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 resize-none"
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-lg flex items-center justify-center gap-2 transition-colors"
+          >
+            Gửi Phản Hồi <i class="fa-solid fa-paper-plane text-sm"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- Footer Brand -->
+      <div class="text-center mt-12 mb-4">
+        <p
+          class="text-slate-400 text-sm font-bold tracking-widest opacity-50 uppercase"
+        >
+          PTD
+        </p>
+      </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+  </body>
+  <script src="./js.js"></script>
+</html>
