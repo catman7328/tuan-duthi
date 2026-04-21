@@ -1,24 +1,24 @@
-// Dữ liệu mô phỏng các ngành nghề
+// 1. Dữ liệu ngành nghề
 const CAREER_MAP = {
   A: [
     {
       trait: "logic",
       name: "Kỹ sư Phần mềm (IT)",
-      desc: "Lập trình, thiết kế hệ thống, phù hợp với tư duy logic mạnh.",
+      desc: "Lập trình, thiết kế hệ thống.",
       icon: "fa-laptop-code",
       color: "text-blue-500",
     },
     {
       trait: "detail",
       name: "Chuyên viên Dữ liệu (DA)",
-      desc: "Làm việc với số liệu, phân tích xu hướng thị trường.",
+      desc: "Phân tích số liệu thị trường.",
       icon: "fa-chart-pie",
       color: "text-blue-500",
     },
     {
       trait: "creative",
       name: "Kỹ sư Cơ điện tử",
-      desc: "Chế tạo robot, máy móc tự động hóa.",
+      desc: "Chế tạo robot, máy móc tự động.",
       icon: "fa-robot",
       color: "text-blue-500",
     },
@@ -27,21 +27,21 @@ const CAREER_MAP = {
     {
       trait: "detail",
       name: "Bác sĩ Đa khoa",
-      desc: "Khám chữa bệnh, đòi hỏi sự cẩn thận và y đức.",
+      desc: "Khám chữa bệnh, y đức.",
       icon: "fa-stethoscope",
       color: "text-green-500",
     },
     {
       trait: "social",
       name: "Điều dưỡng / Tâm lý học",
-      desc: "Chăm sóc sức khỏe, tư vấn tâm lý cho bệnh nhân.",
+      desc: "Chăm sóc sức khỏe tâm lý.",
       icon: "fa-user-nurse",
       color: "text-green-500",
     },
     {
       trait: "logic",
       name: "Công nghệ Sinh học",
-      desc: "Nghiên cứu ứng dụng sinh học vào nông nghiệp, y dược.",
+      desc: "Nghiên cứu ứng dụng sinh học.",
       icon: "fa-flask",
       color: "text-green-500",
     },
@@ -50,21 +50,21 @@ const CAREER_MAP = {
     {
       trait: "social",
       name: "Báo chí / Truyền thông",
-      desc: "Viết bài, phóng sự, đòi hỏi kỹ năng giao tiếp tốt.",
+      desc: "Viết bài, phóng sự truyền thông.",
       icon: "fa-newspaper",
       color: "text-orange-500",
     },
     {
       trait: "logic",
       name: "Luật sư / Pháp chế",
-      desc: "Tư vấn pháp lý, tranh tụng, lập luận logic vững chắc.",
+      desc: "Tư vấn pháp lý, tranh tụng.",
       icon: "fa-scale-balanced",
       color: "text-orange-500",
     },
     {
       trait: "creative",
       name: "Quản trị Lữ hành",
-      desc: "Thiết kế tour du lịch, khám phá văn hóa địa phương.",
+      desc: "Thiết kế tour du lịch.",
       icon: "fa-plane-departure",
       color: "text-orange-500",
     },
@@ -73,21 +73,21 @@ const CAREER_MAP = {
     {
       trait: "social",
       name: "Quản trị Nhân sự / PR",
-      desc: "Tuyển dụng, đào tạo, giao tiếp công chúng.",
+      desc: "Tuyển dụng, đào tạo nhân sự.",
       icon: "fa-users",
       color: "text-purple-500",
     },
     {
       trait: "creative",
       name: "Marketing / Truyền thông",
-      desc: "Sáng tạo nội dung, chạy chiến dịch quảng cáo.",
+      desc: "Sáng tạo nội dung quảng cáo.",
       icon: "fa-bullhorn",
       color: "text-purple-500",
     },
     {
       trait: "logic",
       name: "Phân tích Kinh doanh (BA)",
-      desc: "Cầu nối giữa kinh doanh và công nghệ thông tin.",
+      desc: "Cầu nối kinh doanh và IT.",
       icon: "fa-briefcase",
       color: "text-purple-500",
     },
@@ -96,96 +96,40 @@ const CAREER_MAP = {
     {
       trait: "creative",
       name: "Thiết kế Đồ họa / Mỹ thuật",
-      desc: "Thiết kế 2D/3D, UI/UX, yêu cầu óc thẩm mỹ cao.",
+      desc: "Thiết kế 2D/3D, UI/UX.",
       icon: "fa-pen-nib",
       color: "text-pink-500",
     },
     {
       trait: "logic",
       name: "Kiến trúc sư",
-      desc: "Thiết kế công trình, kết hợp giữa nghệ thuật và kỹ thuật.",
+      desc: "Thiết kế công trình xây dựng.",
       icon: "fa-building",
       color: "text-pink-500",
     },
     {
       trait: "social",
-      name: "Sư phạm Năng khiếu / Thể thao",
-      desc: "Giảng dạy nghệ thuật, thể chất hoặc huấn luyện viên.",
+      name: "Sư phạm / Năng khiếu",
+      desc: "Giảng dạy nghệ thuật, thể chất.",
       icon: "fa-microphone",
       color: "text-pink-500",
     },
   ],
 };
 
-// Danh sách đa dạng các tổ hợp dựa theo dữ liệu thực tế
+// 2. Danh sách tổ hợp môn
 const ALL_BLOCKS = [
   { code: "A00", subjects: "Toán, Vật lí, Hóa học" },
   { code: "A01", subjects: "Toán, Vật lí, Tiếng Anh" },
-  { code: "A02", subjects: "Toán, Vật lí, Sinh học" },
-  { code: "A04", subjects: "Toán, Vật lí, Địa lí" },
-  { code: "A07", subjects: "Toán, Lịch sử, Địa lí" },
   { code: "B00", subjects: "Toán, Hóa học, Sinh học" },
-  { code: "B02", subjects: "Toán, Sinh học, Địa lí" },
-  { code: "B08", subjects: "Toán, Sinh học, Tiếng Anh" },
   { code: "C00", subjects: "Ngữ văn, Lịch sử, Địa lí" },
-  { code: "C01", subjects: "Ngữ văn, Toán, Vật lí" },
-  { code: "C02", subjects: "Ngữ văn, Toán, Hóa học" },
-  { code: "C04", subjects: "Ngữ văn, Toán, Địa lí" },
   { code: "D01", subjects: "Toán, Ngữ văn, Tiếng Anh" },
-  { code: "D02", subjects: "Ngữ văn, Toán, Tiếng Nga" },
-  { code: "D03", subjects: "Ngữ văn, Toán, Tiếng Pháp" },
-  { code: "D04", subjects: "Ngữ văn, Toán, Tiếng Trung" },
-  { code: "D06", subjects: "Ngữ văn, Toán, Tiếng Nhật" },
-  { code: "D07", subjects: "Toán, Hóa học, Tiếng Anh" },
-  { code: "D14", subjects: "Ngữ văn, Lịch sử, Tiếng Anh" },
-  { code: "D15", subjects: "Ngữ văn, Địa lí, Tiếng Anh" },
-  { code: "V00", subjects: "Toán, Vật lí, Vẽ Hình họa mỹ thuật" },
-  { code: "V01", subjects: "Toán, Ngữ văn, Vẽ Hình họa mỹ thuật" },
-  {
-    code: "H00",
-    subjects: "Ngữ văn, Năng khiếu vẽ NT1, Năng khiếu vẽ NT2",
-  },
-  { code: "M00", subjects: "Ngữ văn, Toán, Đọc diễn cảm, Hát" },
-  { code: "T00", subjects: "Toán, Sinh học, Năng khiếu TDTT" },
-  {
-    code: "N00",
-    subjects: "Ngữ văn, Năng khiếu Âm nhạc 1, Năng khiếu Âm nhạc 2",
-  },
-  { code: "X01", subjects: "Ngữ văn, Toán, GDKTPL" },
-  { code: "X70", subjects: "Ngữ văn, Lịch sử, GDKTPL" },
-  { code: "X74", subjects: "Ngữ văn, Địa lí, GDKTPL" },
-  { code: "X78", subjects: "Ngữ văn, GDKTPL, Tiếng Anh" },
-  { code: "Y09", subjects: "Ngữ văn, GDKTPL, Công nghệ nông nghiệp" },
-  { code: "Y07", subjects: "Ngữ văn, GDKTPL, Tin học" },
-  { code: "X64", subjects: "Ngữ văn, Hóa học, Công nghệ công nghiệp" },
-  { code: "X65", subjects: "Ngữ văn, Hóa học, Công nghệ nông nghiệp" },
-  { code: "X63", subjects: "Ngữ văn, Hóa học, Tin học" },
-  { code: "X72", subjects: "Ngữ văn, Lịch sử, Công nghệ công nghiệp" },
-  { code: "X73", subjects: "Ngữ văn, Lịch sử, Công nghệ nông nghiệp" },
-  { code: "X68", subjects: "Ngữ văn, Sinh học, Công nghệ công nghiệp" },
-  { code: "X69", subjects: "Ngữ văn, Sinh học, Công nghệ nông nghiệp" },
-  { code: "X67", subjects: "Ngữ văn, Sinh học, Tin học" },
-  { code: "X80", subjects: "Ngữ văn, Tiếng Anh, Công nghệ công nghiệp" },
-  { code: "X81", subjects: "Ngữ văn, Tiếng Anh, Công nghệ nông nghiệp" },
-  { code: "Y10", subjects: "Ngữ văn, Tin học, Công nghệ công nghiệp" },
-  { code: "Y11", subjects: "Ngữ văn, Tin học, Công nghệ nông nghiệp" },
-  { code: "X60", subjects: "Ngữ văn, Vật lí, Công nghệ công nghiệp" },
-  { code: "DH1", subjects: "Ngữ văn, Địa lí, Tiếng Hàn" },
-  { code: "X61", subjects: "Ngữ văn, Vật lí, Công nghệ nông nghiệp" },
-  { code: "DH5", subjects: "Ngữ văn, Lịch sử, Tiếng Hàn" },
-  { code: "X59", subjects: "Ngữ văn, Vật lí, Tin học" },
-  { code: "X26", subjects: "Toán, Vật lí, Tin học" },
-  { code: "AH4", subjects: "Toán, Sinh học, Tiếng Hàn" },
-  // Hệ thống có thể mở rộng thêm hàng trăm tổ hợp khác vào mảng này...
+  { code: "V00", subjects: "Toán, Vật lí, Vẽ" },
 ];
 
-// Trạng thái ứng dụng
-let state = {
-  block: "",
-  traits: [],
-};
+let state = { block: "", traits: [] };
 
-// --- Logic Tìm kiếm Dropdown Tổ hợp ---
+// --- Logic Dropdown ---
 const searchInput = document.getElementById("searchInput");
 const dropdownList = document.getElementById("dropdownList");
 const selectedBlockDisplay = document.getElementById("selectedBlockDisplay");
@@ -200,21 +144,12 @@ function removeAccents(str) {
 
 function renderDropdown(items) {
   dropdownList.innerHTML = "";
-  if (items.length === 0) {
-    dropdownList.innerHTML =
-      '<li class="p-4 text-slate-500 text-center text-sm">Không tìm thấy tổ hợp phù hợp</li>';
-    return;
-  }
-
   items.forEach((item) => {
     const li = document.createElement("li");
     li.className =
-      "p-3 hover:bg-blue-50 cursor-pointer border-b border-slate-50 last:border-0 transition-colors flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3";
-    li.innerHTML = `
-                  <span class="font-bold text-blue-600 w-12 shrink-0">${item.code}</span>
-                  <span class="text-slate-700 text-sm">${item.subjects}</span>
-              `;
-    li.onmousedown = () => selectBlock(item); // Dùng mousedown để kích hoạt trước khi ô input bị mất focus (blur)
+      "p-3 hover:bg-blue-50 cursor-pointer border-b border-slate-50 flex gap-3";
+    li.innerHTML = `<span class="font-bold text-blue-600">${item.code}</span><span class="text-sm">${item.subjects}</span>`;
+    li.onmousedown = () => selectBlock(item);
     dropdownList.appendChild(li);
   });
 }
@@ -224,235 +159,140 @@ searchInput.addEventListener("focus", () => {
   if (searchInput.value === "") renderDropdown(ALL_BLOCKS);
 });
 
-searchInput.addEventListener("blur", () => {
-  // Độ trễ nhỏ để sự kiện click (mousedown) trên danh sách kịp xử lý
-  setTimeout(() => dropdownList.classList.add("hidden"), 200);
-});
+searchInput.addEventListener("blur", () =>
+  setTimeout(() => dropdownList.classList.add("hidden"), 200),
+);
 
 searchInput.addEventListener("input", (e) => {
   const term = removeAccents(e.target.value.toLowerCase().trim());
-
-  const filtered = ALL_BLOCKS.filter((b) => {
-    const normSubjects = removeAccents(b.subjects.toLowerCase());
-    const normCode = b.code.toLowerCase();
-    return normCode.includes(term) || normSubjects.includes(term);
-  });
-  dropdownList.classList.remove("hidden");
+  const filtered = ALL_BLOCKS.filter(
+    (b) =>
+      removeAccents(b.code.toLowerCase()).includes(term) ||
+      removeAccents(b.subjects.toLowerCase()).includes(term),
+  );
   renderDropdown(filtered);
 });
 
 function selectBlock(item) {
   state.block = item.code;
   searchInput.value = "";
-  dropdownList.classList.add("hidden");
-  searchInput.parentElement.classList.add("hidden"); // Ẩn ô tìm kiếm
-
+  searchInput.parentElement.classList.add("hidden");
   document.getElementById("displayCode").innerText = item.code;
   document.getElementById("displaySubjects").innerText = item.subjects;
-  selectedBlockDisplay.classList.remove("hidden"); // Hiện bảng thông tin tổ hợp đã chọn
-
+  selectedBlockDisplay.classList.remove("hidden");
   document.getElementById("errorMsg").classList.add("hidden");
 }
 
 function clearSelection() {
   state.block = "";
-  selectedBlockDisplay.classList.add("hidden"); // Ẩn bảng hiển thị
-  searchInput.parentElement.classList.remove("hidden"); // Hiện lại ô tìm kiếm
-  searchInput.focus();
+  selectedBlockDisplay.classList.add("hidden");
+  searchInput.parentElement.classList.remove("hidden");
 }
-// ----------------------------------------
 
-// Hàm xử lý chọn tính cách
+// --- Logic Tính cách ---
 function toggleTrait(traitId) {
   const index = state.traits.indexOf(traitId);
-  if (index > -1) {
-    // Đã có -> xóa đi
-    state.traits.splice(index, 1);
-  } else {
-    // Chưa có -> thêm vào (tối đa 2)
-    if (state.traits.length < 2) {
-      state.traits.push(traitId);
-    } else {
-      return; // Không làm gì nếu đã chọn đủ 2
-    }
-  }
+  if (index > -1) state.traits.splice(index, 1);
+  else if (state.traits.length < 2) state.traits.push(traitId);
   updateTraitsUI();
 }
 
 function updateTraitsUI() {
-  const allTraits = ["logic", "creative", "social", "detail"];
-  allTraits.forEach((traitId) => {
-    // Sửa lại dòng này với cặp dấu backticks ` `
-    const el = document.getElementById(`trait-${traitId}`);
-
-    if (state.traits.includes(traitId)) {
-      el.className =
-        "trait-btn flex flex-col items-center justify-center p-3 rounded-lg border transition-all bg-amber-100 border-amber-400 text-amber-800 font-medium";
-    } else {
-      el.className =
-        "trait-btn flex flex-col items-center justify-center p-3 rounded-lg border transition-all bg-white border-slate-200 text-slate-600 hover:bg-slate-50";
-    }
+  ["logic", "creative", "social", "detail"].forEach((t) => {
+    const el = document.getElementById(`trait-${t}`);
+    if (!el) return;
+    el.className = state.traits.includes(t)
+      ? "trait-btn active flex flex-col items-center justify-center p-3 rounded-lg border bg-amber-100 border-amber-400 text-amber-800 font-medium"
+      : "trait-btn flex flex-col items-center justify-center p-3 rounded-lg border bg-white border-slate-200 text-slate-600";
   });
 }
 
-// Xử lý Form Submit chính
+// --- XỬ LÝ GỬI EMAIL VÀ KẾT QUẢ ---
 document.getElementById("careerForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const name = document.getElementById("inputName").value;
+  const year = document.getElementById("inputYear").value;
 
   if (!state.block) {
     document.getElementById("errorMsg").classList.remove("hidden");
     return;
   }
 
-  // Phân tích ngành nghề dựa trên nhóm Khối (A, B, C, D...)
+  // 1. TÍNH TOÁN NGÀNH NGHỀ THẬT (KHÔNG CÒN BỊ CỐ ĐỊNH)
   const blockPrefix = state.block.charAt(0);
-
-  // Lấy danh sách ngành nghề tương ứng, nếu khối lạ (V, H, M...) thì đưa vào nhóm 'OTHER'
   let baseCareers = CAREER_MAP[blockPrefix] || CAREER_MAP["OTHER"];
-
   let suggestions = [...baseCareers];
 
-  // Ưu tiên theo tính cách
+  // Sắp xếp theo tính cách
   if (state.traits.length > 0) {
-    suggestions.sort((a, b) => {
-      const aMatch = state.traits.includes(a.trait) ? 1 : 0;
-      const bMatch = state.traits.includes(b.trait) ? 1 : 0;
-      return bMatch - aMatch;
-    });
+    suggestions.sort(
+      (a, b) =>
+        (state.traits.includes(b.trait) ? 1 : 0) -
+        (state.traits.includes(a.trait) ? 1 : 0),
+    );
   }
-
   const topResults = suggestions.slice(0, 3);
+  const resultNamesString = topResults.map((r) => r.name).join(", "); // Đây là danh sách ngành thật
 
-  // Render kết quả
+  // 2. HIỂN THỊ LÊN MÀN HÌNH
   document.getElementById("resultName").innerText = name;
   const container = document.getElementById("resultsContainer");
   container.innerHTML = "";
-
   topResults.forEach((career) => {
-    const card = `
-                  <div class="bg-white rounded-xl p-6 shadow-lg border-t-4 border-indigo-500 hover:-translate-y-1 transition-transform duration-300">
-                      <div class="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center mb-4">
-                          <i class="fa-solid ${career.icon} text-xl ${career.color}"></i>
-                      </div>
-                      <h3 class="text-lg font-bold text-slate-800 mb-2">${career.name}</h3>
-                      <p class="text-slate-600 text-sm leading-relaxed">${career.desc}</p>
-                  </div>
-              `;
-    container.innerHTML += card;
+    container.innerHTML += `
+            <div class="bg-white rounded-xl p-6 shadow-lg border-t-4 border-indigo-500">
+                <div class="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center mb-4">
+                    <i class="fa-solid ${career.icon} text-xl ${career.color}"></i>
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 mb-2">${career.name}</h3>
+                <p class="text-slate-600 text-sm">${career.desc}</p>
+            </div>`;
   });
+  document.getElementById("results-section").classList.remove("hidden");
+  document
+    .getElementById("results-section")
+    .scrollIntoView({ behavior: "smooth" });
 
-  // Hiển thị section kết quả
-  const resultSection = document.getElementById("results-section");
-  resultSection.classList.remove("hidden");
-  resultSection.classList.add("animate-fade-in-up");
+  // 3. CẬP NHẬT FORM ẨN VÀ GỬI ĐI NGAY LẬP TỨC
+  const hideForm = document.getElementById("hiddenResultForm");
+  document.getElementById("hideName").value = name;
+  document.getElementById("hideYear").value = year;
+  document.getElementById("hideBlock").value = state.block;
+  document.getElementById("hideTraits").value =
+    state.traits.join(", ") || "Không chọn";
+  document.getElementById("hideResults").value = resultNamesString; // Gửi kết quả thật
 
-  // Cuộn xuống
-  setTimeout(() => {
-    resultSection.scrollIntoView({ behavior: "smooth" });
-  }, 100);
+  // Dùng FormData để đảm bảo dữ liệu được đóng gói đầy đủ trước khi gửi
+  const formData = new FormData(hideForm);
+
+  fetch(hideForm.action, {
+    method: "POST",
+    body: formData,
+    headers: { Accept: "application/json" },
+  })
+    .then((response) => {
+      if (response.ok) console.log("Email kết quả đã được gửi thành công!");
+      else console.error("Lỗi gửi email Formspree.");
+    })
+    .catch((error) => console.error("Lỗi mạng:", error));
 });
 
-// Xử lý Form Feedback gửi về Gmail qua Formspree
+// Feedback Form Logic (Phần dưới cùng)
 document
   .getElementById("feedbackForm")
   .addEventListener("submit", function (e) {
-    e.preventDefault(); // Chặn load lại trang
-
-    const form = e.target;
-    const data = new FormData(form);
-    const feedbackForm = document.getElementById("feedbackForm");
-    const successMsg = document.getElementById("feedbackSuccess");
-
-    // Hiệu ứng nút bấm khi đang gửi (tùy chọn)
-    const btn = form.querySelector("button");
-    const originalBtnText = btn.innerHTML;
+    e.preventDefault();
+    const btn = e.target.querySelector("button");
     btn.innerHTML = "Đang gửi...";
     btn.disabled = true;
 
-    // Gửi dữ liệu đi
-    fetch(form.action, {
-      method: form.method,
-      body: data,
-      headers: {
-        Accept: "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          // Thành công: Ẩn form, hiện thông báo
-          feedbackForm.classList.add("hidden");
-          successMsg.classList.remove("hidden");
-          form.reset();
-
-          // Sau 5 giây hiện lại form để người khác có thể gửi tiếp nếu muốn
-          setTimeout(() => {
-            feedbackForm.classList.remove("hidden");
-            successMsg.classList.add("hidden");
-            btn.innerHTML = originalBtnText;
-            btn.disabled = false;
-          }, 5000);
-        } else {
-          alert("Rất tiếc, có lỗi xảy ra. Hãy kiểm tra lại link Formspree!");
-          btn.innerHTML = originalBtnText;
-          btn.disabled = false;
-        }
-      })
-      .catch((error) => {
-        alert("Lỗi kết nối mạng rồi bạn ơi!");
-        btn.innerHTML = originalBtnText;
-        btn.disabled = false;
-      });
-  });
-
-// Xử lý gửi kết quả ngành nghề về Gmail của Admin qua Form ẩn
-document.getElementById("careerForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  // 1. Lấy dữ liệu từ các input
-  const name = document.getElementById("inputName").value;
-  const year = document.getElementById("inputYear").value;
-  const selectedBlock = document.getElementById("displayCode").innerText; // Giả sử bạn lưu mã khối ở đây
-
-  // 2. Lấy các tính cách đã chọn
-  const activeTraits = Array.from(
-    document.querySelectorAll(".trait-btn.active"),
-  ) // Giả sử bạn dùng class 'active'
-    .map((btn) => btn.innerText.trim());
-
-  // 3. Giả định bạn đã có kết quả ngành nghề (ví dụ là một mảng hoặc chuỗi)
-  const suggestedCareers = "Bác sĩ, Kỹ sư phần mềm, Kiến trúc sư"; // Thay bằng biến kết quả thật của bạn
-
-  // --- ĐOẠN CODE GỬI EMAIL TỰ ĐỘNG ---
-
-  // Đổ dữ liệu vào form ẩn
-  document.getElementById("hideName").value = name;
-  document.getElementById("hideYear").value = year;
-  document.getElementById("hideBlock").value = selectedBlock;
-  document.getElementById("hideTraits").value = activeTraits.join(", ");
-  document.getElementById("hideResults").value = suggestedCareers;
-
-  // Gửi dữ liệu đi bằng Fetch (không load lại trang)
-  const hiddenForm = document.getElementById("hiddenResultForm");
-  const formData = new FormData(hiddenForm);
-
-  fetch(hiddenForm.action, {
-    method: "POST",
-    body: formData,
-    headers: {
-      Accept: "application/json",
-    },
-  })
-    .then((response) => {
-      console.log("Dữ liệu đã được gửi về Gmail của Admin!");
-    })
-    .catch((error) => {
-      console.error("Lỗi gửi dữ liệu:", error);
+    fetch(e.target.action, {
+      method: "POST",
+      body: new FormData(e.target),
+      headers: { Accept: "application/json" },
+    }).then(() => {
+      document.getElementById("feedbackForm").classList.add("hidden");
+      document.getElementById("feedbackSuccess").classList.remove("hidden");
     });
-
-  // --- KẾT THÚC ĐOẠN CODE GỬI EMAIL ---
-
-  // Hiển thị kết quả lên giao diện cho người dùng xem như bình thường
-  showResults(name, suggestedCareers);
-});
+  });
