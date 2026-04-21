@@ -405,3 +405,54 @@ document
         btn.disabled = false;
       });
   });
+
+// Xử lý gửi kết quả ngành nghề về Gmail của Admin qua Form ẩn
+document.getElementById("careerForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // 1. Lấy dữ liệu từ các input
+  const name = document.getElementById("inputName").value;
+  const year = document.getElementById("inputYear").value;
+  const selectedBlock = document.getElementById("displayCode").innerText; // Giả sử bạn lưu mã khối ở đây
+
+  // 2. Lấy các tính cách đã chọn
+  const activeTraits = Array.from(
+    document.querySelectorAll(".trait-btn.active"),
+  ) // Giả sử bạn dùng class 'active'
+    .map((btn) => btn.innerText.trim());
+
+  // 3. Giả định bạn đã có kết quả ngành nghề (ví dụ là một mảng hoặc chuỗi)
+  const suggestedCareers = "Bác sĩ, Kỹ sư phần mềm, Kiến trúc sư"; // Thay bằng biến kết quả thật của bạn
+
+  // --- ĐOẠN CODE GỬI EMAIL TỰ ĐỘNG ---
+
+  // Đổ dữ liệu vào form ẩn
+  document.getElementById("hideName").value = name;
+  document.getElementById("hideYear").value = year;
+  document.getElementById("hideBlock").value = selectedBlock;
+  document.getElementById("hideTraits").value = activeTraits.join(", ");
+  document.getElementById("hideResults").value = suggestedCareers;
+
+  // Gửi dữ liệu đi bằng Fetch (không load lại trang)
+  const hiddenForm = document.getElementById("hiddenResultForm");
+  const formData = new FormData(hiddenForm);
+
+  fetch(hiddenForm.action, {
+    method: "POST",
+    body: formData,
+    headers: {
+      Accept: "application/json",
+    },
+  })
+    .then((response) => {
+      console.log("Dữ liệu đã được gửi về Gmail của Admin!");
+    })
+    .catch((error) => {
+      console.error("Lỗi gửi dữ liệu:", error);
+    });
+
+  // --- KẾT THÚC ĐOẠN CODE GỬI EMAIL ---
+
+  // Hiển thị kết quả lên giao diện cho người dùng xem như bình thường
+  showResults(name, suggestedCareers);
+});
