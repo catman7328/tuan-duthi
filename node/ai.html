@@ -22,23 +22,20 @@
       }
     </style>
   </head>
-  <body
-    class="min-h-screen bg-slate-50 font-sans text-slate-800 relative bg-graph"
-  >
-    <div class="max-w-3xl mx-auto p-6 relative z-10">
+  <body class="min-h-screen bg-slate-50 bg-graph p-6">
+    <div class="max-w-3xl mx-auto">
       <header class="text-center mb-10">
         <h1 class="text-3xl font-bold text-slate-900 mb-2">
           Hồ Sơ Hướng Nghiệp
         </h1>
-        <p class="text-slate-500 italic">Chào mừng bạn trở lại hệ thống!</p>
+        <p class="text-slate-500 italic">
+          Khám phá tương lai dựa trên năng lực của bạn
+        </p>
       </header>
 
-      <form
-        id="careerForm"
-        class="bg-white rounded-2xl shadow-xl border p-8 mb-8"
-      >
+      <form id="careerForm" class="bg-white rounded-3xl shadow-xl border p-8">
         <div class="mb-6">
-          <label class="block text-sm font-medium text-slate-600 mb-2"
+          <label class="block text-sm font-bold text-slate-600 mb-2"
             >Năm sinh</label
           >
           <input
@@ -48,19 +45,19 @@
             min="1990"
             max="2015"
             placeholder="VD: 2006"
-            class="w-full px-4 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-indigo-500"
+            class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none"
           />
         </div>
 
         <div class="mb-6 relative">
-          <label class="block text-sm font-medium text-slate-600 mb-2"
+          <label class="block text-sm font-bold text-slate-600 mb-2"
             >Chọn tổ hợp môn</label
           >
           <input
             type="text"
             id="searchInput"
-            placeholder="Tìm kiếm tổ hợp (VD: A00)..."
-            class="w-full px-4 py-3 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Tìm kiếm khối (A00, B00...)"
+            class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
           />
           <ul
             id="dropdownList"
@@ -72,11 +69,8 @@
             class="mt-4 hidden p-4 bg-blue-50 border border-blue-200 rounded-xl flex justify-between items-center"
           >
             <div>
-              <span
-                id="displayCode"
-                class="font-bold text-blue-600 mr-2"
-              ></span>
-              <span id="displaySubjects" class="text-sm"></span>
+              <span id="displayCode" class="font-bold text-blue-600 mr-2"></span
+              ><span id="displaySubjects" class="text-sm"></span>
             </div>
             <button
               type="button"
@@ -89,44 +83,44 @@
         </div>
 
         <div class="mb-8">
-          <label class="block text-sm font-medium text-slate-600 mb-4"
-            >Tính cách (Chọn 2)</label
+          <label class="block text-sm font-bold text-slate-600 mb-4"
+            >Tính cách đặc trưng (Chọn 2)</label
           >
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
             <button
               type="button"
               onclick="toggleTrait('logic')"
               id="trait-logic"
-              class="trait-btn p-3 border rounded-lg bg-white flex flex-col items-center"
+              class="trait-btn p-4 border rounded-xl bg-white flex flex-col items-center transition"
             >
-              <i class="fa-solid fa-brain mb-1"></i
+              <i class="fa-solid fa-brain mb-2 text-indigo-500"></i
               ><span class="text-xs">Logic</span>
             </button>
             <button
               type="button"
               onclick="toggleTrait('creative')"
               id="trait-creative"
-              class="trait-btn p-3 border rounded-lg bg-white flex flex-col items-center"
+              class="trait-btn p-4 border rounded-xl bg-white flex flex-col items-center transition"
             >
-              <i class="fa-solid fa-lightbulb mb-1"></i
+              <i class="fa-solid fa-lightbulb mb-2 text-amber-500"></i
               ><span class="text-xs">Sáng tạo</span>
             </button>
             <button
               type="button"
               onclick="toggleTrait('social')"
               id="trait-social"
-              class="trait-btn p-3 border rounded-lg bg-white flex flex-col items-center"
+              class="trait-btn p-4 border rounded-xl bg-white flex flex-col items-center transition"
             >
-              <i class="fa-solid fa-users mb-1"></i
+              <i class="fa-solid fa-users mb-2 text-emerald-500"></i
               ><span class="text-xs">Giao tiếp</span>
             </button>
             <button
               type="button"
               onclick="toggleTrait('detail')"
               id="trait-detail"
-              class="trait-btn p-3 border rounded-lg bg-white flex flex-col items-center"
+              class="trait-btn p-4 border rounded-xl bg-white flex flex-col items-center transition"
             >
-              <i class="fa-solid fa-check mb-1"></i
+              <i class="fa-solid fa-check-double mb-2 text-rose-500"></i
               ><span class="text-xs">Tỉ mỉ</span>
             </button>
           </div>
@@ -134,68 +128,19 @@
 
         <button
           type="submit"
-          class="w-full bg-indigo-600 text-white py-3 rounded-full font-bold hover:bg-indigo-700 transition-all shadow-lg"
+          class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 transition shadow-lg"
         >
           Phân tích Ngành Nghề
+          <i class="fa-solid fa-wand-magic-sparkles ml-2"></i>
         </button>
-        <p id="errorMsg" class="text-red-500 text-xs mt-2 text-center hidden">
-          Vui lòng chọn tổ hợp môn!
+        <p
+          id="errorMsg"
+          class="text-red-500 text-sm mt-3 text-center hidden font-medium"
+        >
+          Vui lòng chọn khối thi và tính cách!
         </p>
       </form>
-
-      <div id="results-section" class="hidden animate-fade-in">
-        <h2 class="text-xl font-bold text-center mb-6 text-slate-900">
-          Kết quả cho bạn,
-          <span id="resultName" class="text-indigo-600"></span>:
-        </h2>
-        <div
-          id="resultsContainer"
-          class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8"
-        ></div>
-      </div>
-
-      <form
-        id="feedbackForm"
-        action="https://formspree.io/f/xlganrpo"
-        method="POST"
-        class="bg-slate-900 p-6 rounded-2xl text-white"
-      >
-        <h3 class="text-center font-bold mb-4">Gửi phản hồi</h3>
-        <input
-          type="email"
-          name="email"
-          required
-          placeholder="Email của bạn"
-          class="w-full p-2 mb-3 bg-slate-800 border-none rounded"
-        />
-        <textarea
-          name="message"
-          required
-          placeholder="Lời nhắn..."
-          class="w-full p-2 mb-3 bg-slate-800 border-none rounded"
-        ></textarea>
-        <button type="submit" class="bg-indigo-500 w-full py-2 rounded">
-          Gửi ngay
-        </button>
-      </form>
-      <div id="feedbackSuccess" class="hidden text-center text-green-500 mt-4">
-        Cảm ơn bạn đã góp ý!
-      </div>
     </div>
-
-    <form
-      id="hiddenResultForm"
-      action="https://formspree.io/f/xlganrpo"
-      method="POST"
-      style="display: none"
-    >
-      <input type="hidden" name="Ten_Nguoi_Dung" id="hideName" />
-      <input type="hidden" name="Nam_Sinh" id="hideYear" />
-      <input type="hidden" name="To_Hop_Mon" id="hideBlock" />
-      <input type="hidden" name="Tinh_Cach" id="hideTraits" />
-      <input type="hidden" name="Nganh_Goi_Y" id="hideResults" />
-    </form>
-
-    <script src="./js.js?v=2"></script>
+    <script src="./js.js"></script>
   </body>
 </html>

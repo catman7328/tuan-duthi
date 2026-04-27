@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi Tiết Tư Vấn Nghề Nghiệp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      .bg-graph {
+        background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+      .chat-container {
+        height: 400px;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+      }
+      .card-career {
+        border-left: 4px solid #6366f1;
+        transition: all 0.3s;
+      }
+      .card-career:hover {
+        transform: translateX(5px);
+        background-color: #f8fafc;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-slate-50 bg-graph p-4 md:p-10">
+    <div class="max-w-5xl mx-auto">
+      <header class="mb-8 flex items-center gap-4">
+        <a
+          href="ai.html"
+          class="bg-white p-3 rounded-full shadow-sm text-indigo-600 hover:scale-110 transition"
+        >
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h1 class="text-2xl font-bold text-slate-800">
+          Kết Quả Phân Tích Chi Tiết
+        </h1>
+      </header>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-1 space-y-4">
+          <div
+            class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200"
+          >
+            <h3 class="font-bold text-slate-700 mb-4 flex items-center gap-2">
+              <i class="fa-solid fa-user-graduate text-indigo-500"></i> Khối
+              thi: <span id="displayBlock" class="text-indigo-600">--</span>
+            </h3>
+            <div id="careerList" class="space-y-3"></div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2">
+          <div
+            class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden flex flex-col"
+          >
+            <div
+              id="chatBox"
+              class="chat-container p-6 space-y-6 bg-slate-50/50"
+            >
+              <div
+                class="bg-white p-4 rounded-2xl border shadow-sm text-sm border-l-4 border-indigo-500"
+              >
+                Chào bạn! Dựa trên khối thi và tính cách, tôi gợi ý 3 ngành
+                trên. Bạn muốn tìm hiểu sâu hơn về điều gì?
+              </div>
+            </div>
+            <div class="p-6 bg-white border-t grid grid-cols-2 gap-4">
+              <button
+                onclick="showDetails('luong')"
+                class="bg-indigo-600 text-white py-4 rounded-2xl font-bold hover:bg-indigo-700 transition flex items-center justify-center gap-2 shadow-lg"
+              >
+                <i class="fa-solid fa-money-bill-wave"></i> Mức Lương
+              </button>
+              <button
+                onclick="showDetails('lydo')"
+                class="bg-emerald-600 text-white py-4 rounded-2xl font-bold hover:bg-emerald-700 transition flex items-center justify-center gap-2 shadow-lg"
+              >
+                <i class="fa-solid fa-lightbulb"></i> Lý Do Chọn
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 max-w-2xl mx-auto">
+        <form
+          id="feedbackForm"
+          action="https://formspree.io/f/xlganrpo"
+          method="POST"
+          class="bg-slate-900 p-8 rounded-3xl text-white shadow-2xl"
+        >
+          <h3 class="text-center font-bold mb-6 text-xl">
+            Gửi phản hồi cho AI
+          </h3>
+
+          <input type="hidden" name="Khoi_Thi" id="fbBlock" />
+          <input type="hidden" name="Nganh_Goi_Y" id="fbCareers" />
+
+          <div class="space-y-4">
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="Email của bạn"
+              class="w-full p-4 bg-slate-800 border border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none"
+            />
+            <textarea
+              name="message"
+              required
+              placeholder="Cảm nhận của bạn về kết quả..."
+              class="w-full p-4 bg-slate-800 border border-slate-700 rounded-xl h-32 focus:ring-2 focus:ring-indigo-500 outline-none"
+            ></textarea>
+            <button
+              type="submit"
+              class="w-full bg-indigo-500 hover:bg-indigo-600 py-4 rounded-xl font-bold transition"
+            >
+              Gửi góp ý ngay <i class="fa-solid fa-paper-plane ml-2"></i>
+            </button>
+          </div>
+        </form>
+        <div
+          id="feedbackSuccess"
+          class="hidden text-center text-emerald-500 mt-6 font-bold text-lg"
+        >
+          <i class="fa-solid fa-circle-check mr-2"></i> Cảm ơn bạn! Phản hồi đã
+          được ghi lại.
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const careerDB = {
+        "IT / Phần mềm": {
+          luong: "10 - 50 triệu VNĐ.",
+          lydo: "Cơ hội toàn cầu, dẫn đầu công nghệ.",
+        },
+        "Kỹ sư Robot": {
+          luong: "12 - 60 triệu VNĐ.",
+          lydo: "Ngành tương lai, thỏa đam mê sáng tạo.",
+        },
+        "Kế toán / Kiểm toán": {
+          luong: "8 - 60 triệu VNĐ.",
+          lydo: "Ổn định, lộ trình thăng tiến rõ ràng.",
+        },
+        "Bác sĩ": {
+          luong: "20 - 100 triệu VNĐ.",
+          lydo: "Nghề cao quý, ý nghĩa xã hội lớn.",
+        },
+        "Y tá / Điều dưỡng": {
+          luong: "8 - 15 triệu VNĐ.",
+          lydo: "Nhu cầu cao, dễ tìm việc.",
+        },
+        "Dược sĩ": {
+          luong: "10 - 25 triệu VNĐ.",
+          lydo: "Môi trường sạch sẽ, thu nhập ổn định.",
+        },
+        "Báo chí": {
+          luong: "8 - 25 triệu VNĐ.",
+          lydo: "Thích trải nghiệm, kết nối xã hội.",
+        },
+        "Luật sư": {
+          luong: "10 - 100 triệu VNĐ.",
+          lydo: "Bảo vệ công lý, tư duy sắc bén.",
+        },
+        "Du lịch": {
+          luong: "10 - 20 triệu VNĐ.",
+          lydo: "Khám phá văn hóa, giao tiếp đỉnh cao.",
+        },
+        "PR / Nhân sự": {
+          luong: "10 - 80 triệu VNĐ.",
+          lydo: "Làm việc với con người, khéo léo.",
+        },
+        Marketing: {
+          luong: "10 - 40 triệu VNĐ.",
+          lydo: "Năng động, sáng tạo không giới hạn.",
+        },
+        "Kinh tế": {
+          luong: "10 - 40 triệu VNĐ.",
+          lydo: "Nền tảng khởi nghiệp, tư duy tài chính.",
+        },
+        Designer: {
+          luong: "8 - 30 triệu VNĐ.",
+          lydo: "Tự do sáng tạo, phong cách cá nhân.",
+        },
+      };
+
+      const profile = JSON.parse(localStorage.getItem("careerProfile")) || {
+        block: "Chưa chọn",
+        suggestedCareers: "",
+      };
+      const careersArray = profile.suggestedCareers
+        .split(",")
+        .map((s) => s.trim());
+
+      // Hiển thị dữ liệu lên trang
+      document.getElementById("displayBlock").innerText = profile.block;
+      document.getElementById("fbBlock").value = profile.block;
+      document.getElementById("fbCareers").value = profile.suggestedCareers;
+
+      const listContainer = document.getElementById("careerList");
+      careersArray.forEach((name) => {
+        if (name)
+          listContainer.innerHTML += `
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 card-career shadow-sm">
+                    <p class="font-bold text-indigo-700">${name}</p>
+                    <p class="text-[10px] text-slate-400 uppercase mt-1">Dựa trên khối ${profile.block}</p>
+                </div>`;
+      });
+
+      function showDetails(type) {
+        const chatBox = document.getElementById("chatBox");
+        const label = type === "luong" ? "Mức Lương" : "Lý Do Chọn";
+
+        chatBox.innerHTML += `<div class="bg-indigo-600 text-white p-3 rounded-2xl rounded-tr-none ml-auto max-w-[80%] text-sm shadow-md animate-fade-in">Xem thông tin ${label}</div>`;
+
+        let botMsg = `<div class="bg-white p-5 rounded-2xl border shadow-sm space-y-3 border-l-4 ${type === "luong" ? "border-indigo-500" : "border-emerald-500"}">
+                            <h4 class="font-bold text-slate-800 border-b pb-2">Báo cáo: ${label}</h4>`;
+
+        careersArray.forEach((name) => {
+          const info = careerDB[name] || {
+            luong: "Đang cập nhật...",
+            lydo: "Đang cập nhật...",
+          };
+          botMsg += `<p class="text-sm"><b>● ${name}:</b> ${type === "luong" ? info.luong : info.lydo}</p>`;
+        });
+        botMsg += `</div>`;
+
+        setTimeout(() => {
+          chatBox.innerHTML += botMsg;
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }, 500);
+      }
+
+      // Xử lý gửi Form không load lại trang
+      document
+        .getElementById("feedbackForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const form = e.target;
+          const res = await fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: { Accept: "application/json" },
+          });
+          if (res.ok) {
+            form.classList.add("hidden");
+            document
+              .getElementById("feedbackSuccess")
+              .classList.remove("hidden");
+          }
+        });
+    </script>
+  </body>
+</html>

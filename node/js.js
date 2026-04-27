@@ -110,76 +110,68 @@ const ALL_BLOCKS = [
   { code: "D01", subjects: "Toán, Văn, Anh" },
 ];
 
-let state = { block: "", traits: [] };
+let state = { block: "", subjects: "", traits: [] };
 
-// --- DROPDOWN ---
 const searchInput = document.getElementById("searchInput");
 const dropdownList = document.getElementById("dropdownList");
 
-if (searchInput) {
-  searchInput.addEventListener("focus", () => {
-    dropdownList.classList.remove("hidden");
-    renderDropdown(ALL_BLOCKS);
-  });
-  searchInput.addEventListener("input", (e) => {
-    const term = e.target.value.toUpperCase();
-    const filtered = ALL_BLOCKS.filter(
-      (b) => b.code.includes(term) || b.subjects.includes(term),
-    );
-    renderDropdown(filtered);
-  });
-}
+searchInput.addEventListener("focus", () => {
+  dropdownList.classList.remove("hidden");
+  renderDropdown(ALL_BLOCKS);
+});
+searchInput.addEventListener("input", (e) => {
+  const term = e.target.value.toUpperCase();
+  const filtered = ALL_BLOCKS.filter(
+    (b) => b.code.includes(term) || b.subjects.includes(term),
+  );
+  renderDropdown(filtered);
+});
 
 function renderDropdown(items) {
   dropdownList.innerHTML = items
     .map(
       (item) =>
-        `<li onclick="selectBlock('${item.code}', '${item.subjects}')" class="p-3 hover:bg-blue-50 cursor-pointer border-b">${item.code} - ${item.subjects}</li>`,
+        `<li onclick="selectBlock('${item.code}', '${item.subjects}')" class="p-4 hover:bg-indigo-50 cursor-pointer border-b text-sm font-medium">${item.code} - ${item.subjects}</li>`,
     )
     .join("");
 }
 
 window.selectBlock = (code, subs) => {
   state.block = code;
+  state.subjects = subs;
   document.getElementById("displayCode").innerText = code;
   document.getElementById("displaySubjects").innerText = subs;
   document.getElementById("selectedBlockDisplay").classList.remove("hidden");
-  searchInput.parentElement.classList.add("hidden");
+  searchInput.classList.add("hidden");
   dropdownList.classList.add("hidden");
 };
 
 window.clearSelection = () => {
   state.block = "";
   document.getElementById("selectedBlockDisplay").classList.add("hidden");
-  searchInput.parentElement.classList.remove("hidden");
+  searchInput.classList.remove("hidden");
+  searchInput.value = "";
 };
 
 window.toggleTrait = (id) => {
   const idx = state.traits.indexOf(id);
   if (idx > -1) state.traits.splice(idx, 1);
   else if (state.traits.length < 2) state.traits.push(id);
+
   ["logic", "creative", "social", "detail"].forEach((t) => {
-    document.getElementById(`trait-${t}`).className = state.traits.includes(t)
-      ? "trait-btn active p-3 border rounded-lg flex flex-col items-center"
-      : "trait-btn p-3 border rounded-lg bg-white flex flex-col items-center";
+    document
+      .getElementById(`trait-${t}`)
+      .classList.toggle("active", state.traits.includes(t));
   });
 };
 
-// --- SUBMIT ---
 document.getElementById("careerForm").addEventListener("submit", function (e) {
   e.preventDefault();
-
-  // LẤY TÊN: Ưu tiên lấy từ window.USER_NAME, nếu không có lấy từ data-attribute của body
-  const name =
-    window.USER_NAME || document.body.getAttribute("data-user") || "Thành viên";
-  const year = document.getElementById("inputYear").value;
-
-  if (!state.block) {
+  if (!state.block || state.traits.length < 2) {
     document.getElementById("errorMsg").classList.remove("hidden");
     return;
   }
 
-  // Tính toán kết quả
   const prefix = state.block.charAt(0);
   let careers = [...(CAREER_MAP[prefix] || CAREER_MAP["OTHER"])];
   careers.sort(
@@ -187,51 +179,16 @@ document.getElementById("careerForm").addEventListener("submit", function (e) {
       (state.traits.includes(b.trait) ? 1 : 0) -
       (state.traits.includes(a.trait) ? 1 : 0),
   );
-  const top3 = careers.slice(0, 3);
-  const resultStr = top3.map((c) => c.name).join(", ");
 
-  // Hiển thị
-  document.getElementById("resultName").innerText = name;
-  document.getElementById("resultsContainer").innerHTML = top3
-    .map(
-      (c) => `
-        <div class="bg-white p-6 rounded-xl shadow border-t-4 border-indigo-500">
-            <i class="fa-solid ${c.icon} ${c.color} text-2xl mb-2"></i>
-            <h3 class="font-bold">${c.name}</h3>
-            <p class="text-sm text-slate-500">${c.desc}</p>
-        </div>`,
-    )
-    .join("");
-  document.getElementById("results-section").classList.remove("hidden");
-  document
-    .getElementById("results-section")
-    .scrollIntoView({ behavior: "smooth" });
+  const profileData = {
+    block: state.block,
+    suggestedCareers: careers
+      .slice(0, 3)
+      .map((c) => c.name)
+      .join(", "),
+    year: document.getElementById("inputYear").value,
+  };
 
-  // Gửi form ẩn
-  document.getElementById("hideName").value = name;
-  document.getElementById("hideYear").value = year;
-  document.getElementById("hideBlock").value = state.block;
-  document.getElementById("hideTraits").value = state.traits.join(", ");
-  document.getElementById("hideResults").value = resultStr;
-
-  fetch(document.getElementById("hiddenResultForm").action, {
-    method: "POST",
-    body: new FormData(document.getElementById("hiddenResultForm")),
-    headers: { Accept: "application/json" },
-  });
+  localStorage.setItem("careerProfile", JSON.stringify(profileData));
+  window.location.href = "ai2.html";
 });
-
-// Feedback
-document
-  .getElementById("feedbackForm")
-  .addEventListener("submit", function (e) {
-    e.preventDefault();
-    fetch(this.action, {
-      method: "POST",
-      body: new FormData(this),
-      headers: { Accept: "application/json" },
-    }).then(() => {
-      this.classList.add("hidden");
-      document.getElementById("feedbackSuccess").classList.remove("hidden");
-    });
-  });
